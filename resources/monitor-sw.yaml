@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sw-so11y
+  namespace: monitoring
+  labels:
+    app: oap
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: oap
+  endpoints:
+    - port: http-monitoring
+      interval: 10s
+  namespaceSelector:
+    matchNames:
+      - skywalking-system
