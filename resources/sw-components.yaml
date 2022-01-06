@@ -1,4 +1,21 @@
 apiVersion: operator.skywalking.apache.org/v1alpha1
+kind: Storage
+metadata:
+  name: sample
+  namespace: skywalking-system
+spec:
+  type: elasticsearch
+  connectType: internal
+  version: 7.5.1
+  instances: 1
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+  security:
+    user:
+      secretName: default
+    tls: true
+
+---
+apiVersion: operator.skywalking.apache.org/v1alpha1
 kind: OAPServer
 metadata:
   name: skywalking-system
@@ -6,7 +23,7 @@ metadata:
 spec:
   version: 8.9.1
   instances: 1
-  image: ghcr.io/apache/skywalking/oap:e74adec05fd8a93ee945bcc4a3c7fcbb3761c5c7
+  image: ghcr.io/apache/skywalking/oap:e97b2d2165703c9d5bcdb0556134aa7cbd1382f5
   config:
     - name: SW_METER_ANALYZER_ACTIVE_FILES
       value: satellite
@@ -14,9 +31,15 @@ spec:
       value: prometheus
     - name: SW_OTEL_RECEIVER_ENABLED_OC_RULES
       value: istio-controlplane,oap
+    - name: SW_OTEL_RECEIVER
+      value: default
+    - name: SW_ENVOY_METRIC_ALS_HTTP_ANALYSIS
+      value: mx-mesh
   service:
     template:
       type: ClusterIP
+  storage:
+    name: sample
 
 ---
 apiVersion: operator.skywalking.apache.org/v1alpha1
