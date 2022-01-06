@@ -14,7 +14,7 @@ This repo contains the scripts that help to set up an experiment environment to 
 |----- 06b-deploy-hpa.sh                    // Deploy HPA to monitor SkyWalking Satellite metrics for scaling
 |----- resources
 |----- |----- sw-components.yaml            // SkyWalking OAP, UI, Satellite components in SWCK CRD
-|----- |----- prometheus-clusterRole.yaml   // Update Prometheus Cluster Role for permission of list endpoints
+|----- |----- otel-collector-oap.yaml       // OpenTelemetry Collector and monitor metrics from OAP
 |----- |----- monitor-sw.yaml               // Monitor SkyWalking metrics
 |----- |----- satellite-hpa.yaml            // Satellite HPA resource
 ```
