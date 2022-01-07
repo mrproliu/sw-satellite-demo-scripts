@@ -54,6 +54,8 @@ spec:
   config:
     - name: SATELLITE_TELEMETRY_EXPORT_TYPE
       value: metrics_service
+    - name: SATELLITE_GRPC_ACCEPT_LIMIT_CONNECTION_COUNT
+      value: "11"
   service:
     template:
       type: ClusterIP

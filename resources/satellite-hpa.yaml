@@ -10,6 +10,10 @@ spec:
     name: skywalking-system-satellite
   minReplicas: 1
   maxReplicas: 3
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      selectPolicy: Min
   metrics:
   - type: External
     external:
