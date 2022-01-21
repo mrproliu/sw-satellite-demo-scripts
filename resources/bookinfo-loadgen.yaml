@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trafficgenerator
+  labels:
+    app: trafficgenerator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trafficgenerator
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        app: trafficgenerator
+    spec:
+      containers:
+        - name: trafficgenerator
+          image: williamyeh/wrk
+          command: ["wrk", "-t1", "-c1", "-d100000000000h", "http://productpage:9080/productpage"]
